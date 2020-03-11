@@ -8,6 +8,7 @@ class Classic : public Movie
 public:
 	//constructor and destructor
 	Classic(int stock, string director, string title, string majorActor, int releaseMonth, int releaseYear);
+	Classic(const Classic& theMovie);
 	~Classic();
 
 	//setters
@@ -17,6 +18,9 @@ public:
 	//getters
 	string getMajorActor() const;
 	int getReleaseMonth()const;
+
+	//assignment operator
+	Classic operator=(const Classic& theMovie);
 
 	//operator overloads
 	bool operator==(const Classic& compared) const;

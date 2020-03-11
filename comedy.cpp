@@ -7,6 +7,11 @@ Comedy::Comedy(int stock, string director, string title, int releaseYear) {
 	this->releaseYear = releaseYear;
 }
 
+Comedy::Comedy(const Comedy& theMovie)
+{
+	*this = theMovie;
+}
+
 Comedy::~Comedy()
 {
 }
@@ -45,4 +50,13 @@ bool Comedy::operator>(const Comedy& compared) const
 bool Comedy::operator<(const Comedy& compared) const
 {
 	return !(*this > compared);
+}
+
+Comedy Comedy::operator=(const Comedy& theMovie)
+{
+	this->stock = theMovie.getStock();
+	this->director = theMovie.getDirector();
+	this->title = theMovie.getTitle();
+	this->releaseYear = theMovie.getReleaseYear();
+	return *this;
 }

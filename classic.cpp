@@ -13,6 +13,11 @@ Classic::Classic(int stock, string director, string title, string majorActor, in
 
 }
 
+Classic::Classic(const Classic& theMovie)
+{
+	*this = theMovie;
+}
+
 Classic::~Classic()
 {
 }
@@ -35,6 +40,18 @@ string Classic::getMajorActor() const
 int Classic::getReleaseMonth() const
 {
 	return this->releaseMonth;
+}
+
+Classic Classic::operator=(const Classic& theMovie)
+{
+	stock = theMovie.getStock();
+	director = theMovie.getDirector();
+	title = theMovie.getTitle();
+	majorActor = theMovie.getMajorActor();
+	releaseMonth = theMovie.getReleaseMonth();
+	releaseYear = theMovie.getReleaseYear();
+
+	return *this;
 }
 
 bool Classic::operator==(const Classic& compared) const
@@ -79,3 +96,5 @@ bool Classic::operator<(const Classic& compared) const
 {
 	return !(*this > compared);
 }
+
+
