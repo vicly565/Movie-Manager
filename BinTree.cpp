@@ -30,16 +30,16 @@ bool BinTree::retrieve(const Movie*& target, Movie*& toFind)
 
 	//while we haven't found the movie
 	while (!found) {
-		if (curr != nullptr && target == curr->pMovie) {
+		if (curr != nullptr && *target == *curr->pMovie) {
 			toFind = curr->pMovie;
 			found = true;
 			return true;
 		}
-		else if (curr != nullptr && target > curr->pMovie) {
+		else if (curr != nullptr && *target > *curr->pMovie) {
 			//go right because what we're looking for is bigger than current
 			curr = curr->right;
 		}
-		else if (curr != nullptr && target < curr->pMovie) {
+		else if (curr != nullptr && *target < *curr->pMovie) {
 			//go left because what we're looking for is smaller than current
 			curr = curr->left;
 		}
@@ -77,11 +77,18 @@ void BinTree::makeEmpty()
 		EmptyHelper(root);
 }
 
+void BinTree::display() const
+{
+	if (root != nullptr) {
+		DisplayHelper(root);
+	}
+}
+
 bool BinTree::InsertHelper(Node* curr, Movie* inserting)
 {
 	//ASSUMPTION: this program does not accept duplicate movies in the system
 	if (curr != nullptr) {
-		if (curr->pMovie == inserting) {
+		if (*inserting == *curr->pMovie) {
 			return false;
 		}
 	}
@@ -89,7 +96,7 @@ bool BinTree::InsertHelper(Node* curr, Movie* inserting)
 
 	//if the movie we are inserting is greater than the current movie
 	//we need to traverse right
-	if (inserting > curr->pMovie) {
+	if (*inserting > *curr->pMovie) {
 		if (curr->right == nullptr) {
 			//If right is empty we insert here
 			Node* insNode = new Node();
@@ -105,7 +112,7 @@ bool BinTree::InsertHelper(Node* curr, Movie* inserting)
 			return InsertHelper(curr->right, inserting);
 		}
 	}
-	else if (inserting < curr->pMovie) {
+	else if (*inserting < *curr->pMovie) {
 		if (curr->left == nullptr) {
 			//If left is empty we insert here
 			Node* insNode = new Node();
@@ -137,15 +144,19 @@ void BinTree::EmptyHelper(Node*& current)
 		EmptyHelper(current->left);
 		EmptyHelper(current->right);
 
-		//if the current node isn't empty we want to delete the movie
-		if (current->pMovie != nullptr)
-		{
-			delete current->pMovie;
-			current->pMovie = nullptr;
-		}
 
 		//then we delete the node itslef
 		delete current;
 		current = nullptr;
+	}
+}
+
+void BinTree::DisplayHelper(Node* curr) const
+{
+	if (curr != nullptr) {
+		//print out in order (left, root, right)
+		DisplayHelper(curr->left);
+		curr->pMovie->display();
+		DisplayHelper(curr->right);
 	}
 }

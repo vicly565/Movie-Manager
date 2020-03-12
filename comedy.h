@@ -4,17 +4,15 @@
 using namespace std;
 class Comedy : public Movie
 {
-	Comedy(int stock, string director, string title, int releaseYear);
-	Comedy(const Comedy& theMovie);
+public:
+	Comedy(char type);
 	~Comedy();
 
 	//operator overloads
-	bool operator==(const Comedy& compared) const;
-	bool operator!=(const Comedy& compared)const;
-	bool operator>(const Comedy& compared) const;
-	bool operator<(const Comedy& compared) const;
+	bool operator==(const Movie& other) const;
+	bool operator!=(const Movie& other)const;
+	bool operator>(const Movie& other) const;
+	bool operator<(const Movie& other) const;
 
-	//assignment operator
-	Comedy operator=(const Comedy& theMovie);
 };
 

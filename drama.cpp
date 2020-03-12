@@ -1,25 +1,19 @@
 #include "drama.h"
 
-Drama::Drama(int stock, string director, string title, int releaseYear) {
-	this->stock = stock;
-	this->director = director;
-	this->title = title;
-	this->releaseYear = releaseYear;
+Drama::Drama(char type) {
+	this->typeOfMovie = type;
 }
 
-Drama::Drama(const Drama& theMovie) {
-	*this = theMovie;
-}
 
 Drama::~Drama()
 {
 }
 
-bool Drama::operator==(const Drama& compared) const
+bool Drama::operator==(const Movie& other) const
 {
 	//compares the director then movie title to see if they are equal
-	if (director == compared.getDirector()) {
-		if (title == compared.getTitle()) {
+	if (director == other.getDirector()) {
+		if (title == other.getTitle()) {
 			return true;
 		}
 	}
@@ -27,36 +21,28 @@ bool Drama::operator==(const Drama& compared) const
 	return false;
 }
 
-bool Drama::operator!=(const Drama& compared) const
+bool Drama::operator!=(const Movie& other) const
 {
-	return !(*this == compared);
+	return !(*this == other);
 }
 
-bool Drama::operator>(const Drama& compared) const
+bool Drama::operator>(const Movie& other) const
 {
-//if this director is less than the compared movie's title
-//and its less than the title we can return false
-	if (director <= compared.getDirector()) {
-		if (title <= compared.getTitle()) {
-			return false;
-		}
+//compare directors, if they're equal compare titles
+	if (director != other.getDirector()) {
+		return director.compare(other.getDirector()) > 0;
 	}
+		return title.compare(other.getTitle()) > 0;
 
-	//otherwise the movie is greater than the compared movie
-	return true;
 }
 
-bool Drama::operator<(const Drama& compared) const
+bool Drama::operator<(const Movie& other) const
 {
-	return !(*this > compared);
+	//compare directors, if they're equal compare titles
+	if (director != other.getDirector()) {
+		return director.compare(other.getDirector()) < 0;
+	}
+	return title.compare(other.getTitle()) < 0;
+
 }
 
-Drama Drama::operator=(const Drama& theMovie)
-{
-	this->stock = theMovie.getStock();
-	this->director = theMovie.getDirector();
-	this->title = theMovie.getTitle();
-	this->releaseYear = theMovie.getReleaseYear();
-
-	return *this;
-}

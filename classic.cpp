@@ -1,22 +1,10 @@
 #include "classic.h"
 
-Classic::Classic(int stock, string director, string title, string majorActor, int releaseMonth, int releaseYear)
+Classic::Classic(char type)
 {
-	//MAYBE EDIT THIS@@@@@@@@@@@@@@@@@@@@@@@@@
-	this->stock = stock;
-	//MAYBE EDIT THIS@@@@@@@@@@@@@@@@@@@@@@@@@
-	this->director = director;
-	this->title = title;
-	this->majorActor = majorActor;
-	this->releaseMonth = releaseMonth;
-	this->releaseYear = releaseYear;
-
+	this->typeOfMovie = type;
 }
 
-Classic::Classic(const Classic& theMovie)
-{
-	*this = theMovie;
-}
 
 Classic::~Classic()
 {
@@ -42,25 +30,14 @@ int Classic::getReleaseMonth() const
 	return this->releaseMonth;
 }
 
-Classic Classic::operator=(const Classic& theMovie)
-{
-	stock = theMovie.getStock();
-	director = theMovie.getDirector();
-	title = theMovie.getTitle();
-	majorActor = theMovie.getMajorActor();
-	releaseMonth = theMovie.getReleaseMonth();
-	releaseYear = theMovie.getReleaseYear();
 
-	return *this;
-}
-
-bool Classic::operator==(const Classic& compared) const
+bool Classic::operator==(const Movie& other) const
 {
 	//compare the release date (first the year then the month)
 	//and then compare the major actor to see if the two movies are equal
-	if (releaseYear == compared.getReleaseYear()) {
-		if (releaseMonth == compared.getReleaseMonth()) {
-			if (majorActor == compared.getMajorActor()) {
+	if (releaseYear == other.getReleaseYear()) {
+		if (releaseMonth == other.getReleaseMonth()) {
+			if (majorActor == other.getMajorActor()) {
 				return true;
 			}
 		}
@@ -70,31 +47,40 @@ bool Classic::operator==(const Classic& compared) const
 	return false;
 }
 
-bool Classic::operator!=(const Classic& compared) const
+bool Classic::operator!=(const Movie& other) const
 {
-	return !(*this == compared);
+	return !(*this == other);
 }
 
-bool Classic::operator>(const Classic& compared) const
+bool Classic::operator>(const Movie& other) const
 {
-//if the release date is less than the other movie
-//and major actor is less than the other major actor
-//we can return false that this movie is not greater than the other movie
-	if (releaseYear <= compared.getReleaseYear()) {
-		if (releaseMonth <= compared.getReleaseMonth()) {
-			if (majorActor <= compared.getMajorActor()) {
-				return false;
-			}
-		}
+	if (releaseYear != other.getReleaseYear()) {
+		return releaseYear > other.getReleaseYear();
+}
+	if (releaseMonth != other.getReleaseMonth()) {
+		return releaseMonth > other.getReleaseMonth();
 	}
-
-	//otherwise the movie is greater than the compared movie
-	return true;
+	return majorActor.compare(other.getMajorActor()) > 0;
 }
 
-bool Classic::operator<(const Classic& compared) const
+bool Classic::operator<(const Movie& other) const
 {
-	return !(*this > compared);
+	if (releaseYear != other.getReleaseYear()) {
+		return releaseYear < other.getReleaseYear();
+	}
+	if (releaseMonth != other.getReleaseMonth()) {
+		return releaseMonth < other.getReleaseMonth();
+	}
+	return majorActor.compare(other.getMajorActor()) < 0;
+}
+
+void Classic::display()
+{
+
+	cout << this->getTypeOfMovie() << ", " << this->getStock() << ", ";
+	cout << this->getDirector() << ", " << this->getTitle() << ", ";
+	cout << this->getMajorActor() << " " << this->getReleaseMonth() << " ";
+	cout << this->getReleaseYear() << endl;
 }
 
 

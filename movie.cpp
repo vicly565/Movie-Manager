@@ -1,13 +1,6 @@
 #include "movie.h"
 
 
-Movie::Movie()
-{
-}
-
-Movie::~Movie()
-{
-}
 
 void Movie::setStock(int stock)
 {
@@ -34,6 +27,17 @@ void Movie::setTypeOfMovie(char c)
 	this->typeOfMovie = c;
 }
 
+void Movie::setMajorActor(string actor)
+{
+	
+}
+
+void Movie::setReleaseMonth(int month)
+{
+
+}
+
+
 int Movie::getStock() const
 {
 	return stock;
@@ -57,4 +61,22 @@ int Movie::getReleaseYear() const
 char Movie::getTypeOfMovie() const
 {
 	return this->typeOfMovie;
+}
+
+string Movie::getMajorActor() const
+{
+	return NULL;
+}
+
+int Movie::getReleaseMonth() const
+{
+	return NULL;
+}
+
+void Movie::display()
+{
+
+	cout << this->getTypeOfMovie() << ", " << this->getStock() << ", ";
+	cout << this->getDirector() << ", " << this->getTitle() << ", ";
+	cout << this->getReleaseYear() << endl;
 }

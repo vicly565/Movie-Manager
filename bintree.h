@@ -1,12 +1,12 @@
 #pragma once
 #include "movie.h"
+#include "classic.h"
 #include <iostream>
 
 using namespace std;
 
 class BinTree
 {
-	    friend ostream & operator<<(ostream &, const BinTree& b);
     
 public:
     BinTree(); 
@@ -16,6 +16,7 @@ public:
     bool retrieve(const Movie*& target, Movie*& toFind);
     bool insert(Movie* inserting);
     void makeEmpty();
+	void display() const;
  
     
 private:
@@ -28,5 +29,6 @@ private:
     
 	bool InsertHelper(Node* curr, Movie* inserting);
 	void EmptyHelper(Node*& current);
+	void DisplayHelper(Node* curr) const;
 };
 
