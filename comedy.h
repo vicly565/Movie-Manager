@@ -24,7 +24,6 @@ class Comedy : public Movie
 public:
 	//constructor and destructor
 	Comedy(char type);
-	~Comedy();
 
 	//operator overloads
 	bool operator==(const Movie& other) const;

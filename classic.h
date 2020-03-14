@@ -29,7 +29,6 @@ class Classic : public Movie
 public:
 	//constructor and destructor
 	Classic(char type);
-	~Classic();
 
 	//setters
 	void setMajorActor(string actor);

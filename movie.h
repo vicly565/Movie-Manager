@@ -26,6 +26,7 @@ using namespace std;
 class Movie
 {
 public:
+	virtual ~Movie();
 
 	//Setter methods
 	virtual void setStock(int stock);
