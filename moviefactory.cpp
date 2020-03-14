@@ -1,5 +1,36 @@
+// ------------------------------------------------ moviefactoy.cpp -------------------------------------------------------
+// Victor Ly & Kenneth Ven CSS343 Section C
+// Creation Date: 3/09/2020
+// Date of Last Modification: 3/14/2020
+// --------------------------------------------------------------------------------------------------------------------
+// Purpose: This file contains a factory method to create movies of different types
+// -------------------------------------------------------------------------------------------------------------------- 
+// 
+// Specifications: Each movie type is identified by C for classic, F for comedy, or D for drama
+// 
+// The movie factory has these PUBLIC FUNCTIONS:
+//								static Movie* MakeMovie(istream& inStream);
+//
+// Assumptions: This factory method assumes the data within the text file is formatted correctly
+// 
+// --------------------------------------------------------------------------------------------------------------------
+
 #include "moviefactory.h"
 
+// ------------------------------------MakeMovie----------------------------------------------- 
+// Description
+// MakeMovie(istream& inStream): reads in a line of text and creates a movie object based on the
+// first character in that line of text
+// preconditions: none
+//
+// postconditions: a pointer to the movie that is created is returned
+//
+// assumptions: This method assumes that the user will enter C for classic, F for comedy
+// and D for drama. Any other charcter is considered an invalid movie type.
+// This method assumes that the movies are formatted correctly to what was given in the program
+// specifications
+//
+// --------------------------------------------------------------------------------------------
 Movie* MovieFactory::MakeMovie(istream& inStream)
 {
 	//movie data we need to read in as a string

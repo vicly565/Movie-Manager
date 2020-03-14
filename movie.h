@@ -1,3 +1,25 @@
+// ------------------------------------------------ movie.h -------------------------------------------------------
+// Victor Ly & Kenneth Ven CSS343 Section C
+// Creation Date: 3/09/2020
+// Date of Last Modification: 3/14/2020
+// --------------------------------------------------------------------------------------------------------------------
+// Purpose: This header file is an abstract class for the movie type. This class is used for the dvd store inventory system
+// and represents a movie within the business
+// -------------------------------------------------------------------------------------------------------------------- 
+// 
+// Specifications: Every movie contains a the stock of the movie, movie type, title, director, and release year. 
+// 
+// Every movie has these PUBLIC FUNCTIONS:
+//								virtual void display(); //method for printing out movie
+//
+//								in addition to this function, all movies have getters and setters
+//								for all of its protected data values.
+//
+// Assumptions: This abstract class assumes that the user never intends on creating this base class, but instead
+// assumes the user intends on creating one of the three subclasses (Comedy, Classic, or Drama).
+// 
+// --------------------------------------------------------------------------------------------------------------------
+
 #pragma once
 #include <iostream>
 using namespace std;
@@ -23,9 +45,9 @@ public:
 	virtual char getTypeOfMovie()const;
 	virtual string getMajorActor() const;
 	virtual int getReleaseMonth()const;
-	
 
-	//operator overloads as pure virtual
+
+	//operator overloads as pure virtual to be implemented in subclasses
 	virtual bool operator==(const Movie& other) const = 0;
 	virtual bool operator!=(const Movie& other)const = 0;
 	virtual bool operator>(const Movie& other) const = 0;
