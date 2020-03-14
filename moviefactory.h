@@ -3,9 +3,13 @@
 #include "comedy.h"
 #include "drama.h"
 #include "classic.h"
+#include <string>
+
+using namespace std;
+
 class MovieFactory
 {
 public:
-	static Movie* make_movie(istream& inStream);
+	static Movie* MakeMovie(istream& inStream);
 };
 

@@ -28,7 +28,7 @@ private:
 	Node* root;
     
 	bool InsertHelper(Node* curr, Movie* inserting);
-	void EmptyHelper(Node*& current);
+	void EmptyHelper(Node* current);
 	void DisplayHelper(Node* curr) const;
 };
 

@@ -97,7 +97,8 @@ Movie* MovieFactory::MakeMovie(istream& inStream)
 
 	default:
 
-		cerr << "Invlaid Movie Type: " << movietype << endl;
+		cerr << "Invalid Movie Type: " << movietype << ", ";
+		cout << "Can't create " << title << endl;
 		//read the rest of the line to toss out the bad data
 		getline(inStream, toss);
 		return nullptr;

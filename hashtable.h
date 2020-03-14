@@ -23,6 +23,8 @@ public:
 	Customer* retrieveCustomer(int id) const;
 	void addCustomer(int id, Customer* theCustomer);
 
+	void display();
+
 private:
 	CustomerNode* table[PRIMEHASH];
 

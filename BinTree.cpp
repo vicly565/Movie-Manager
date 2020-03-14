@@ -7,7 +7,10 @@ BinTree::BinTree()
 
 BinTree::~BinTree()
 {
-	makeEmpty();
+	cout << "destructing tree" << endl;
+	if (!this->isEmpty()) {
+		makeEmpty();
+	}
 }
 
 bool BinTree::isEmpty() const
@@ -89,6 +92,7 @@ bool BinTree::InsertHelper(Node* curr, Movie* inserting)
 	//ASSUMPTION: this program does not accept duplicate movies in the system
 	if (curr != nullptr) {
 		if (*inserting == *curr->pMovie) {
+			cout << "ERROR IN INSERTION DUPLICATE MOVIE" << endl;
 			return false;
 		}
 	}
@@ -134,18 +138,24 @@ bool BinTree::InsertHelper(Node* curr, Movie* inserting)
 	return false;
 }
 
-void BinTree::EmptyHelper(Node*& current)
+void BinTree::EmptyHelper(Node* current)
 {
-	if (current != nullptr) {
 
+	if (current != nullptr && current->pMovie != nullptr) {
 		//we want to do a post order traversal
 		//and delete in post order so that leaves are deleted first
 		//and root is deleted last
-		EmptyHelper(current->left);
-		EmptyHelper(current->right);
+		if (current->left != nullptr) {
+			EmptyHelper(current->left);
+		}
+		if (current->right != nullptr) {
+			EmptyHelper(current->right);
+		}
 
 
 		//then we delete the node itslef
+		delete current->pMovie;
+		current->pMovie = nullptr;
 		delete current;
 		current = nullptr;
 	}

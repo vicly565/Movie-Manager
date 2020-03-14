@@ -7,6 +7,7 @@ HashTable::HashTable()
 
 HashTable::~HashTable()
 {
+	cout << "destructing table" << endl;
 	makeEmpty();
 }
 
@@ -70,6 +71,18 @@ void HashTable::addCustomer(int id, Customer* theCustomer)
 
 		//once we break out of the while statement the next node is end of the linked list
 		curr->next = adding;
+	}
+}
+
+void HashTable::display()
+{
+	CustomerNode* temp;
+	for (int i = 0; i < PRIMEHASH; i++) {
+		temp = table[i];
+		while (temp != nullptr) {
+			cout << *temp->data << endl;
+			temp = temp->next;
+		}
 	}
 }
 
