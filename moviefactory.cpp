@@ -1,65 +1,112 @@
 #include "moviefactory.h"
 
-Movie* MovieFactory::make_movie(istream& inStream)
+Movie* MovieFactory::MakeMovie(istream& inStream)
 {
-	//movie data
-	char movietype;
-	int stock;
+	//movie data we need to read in as a string
+	//since we're using getline to read in
+	string type;
+	string stock;
 	string director;
 	string title;
+	string releaseYear;
+
+	//string we use to throw away a line of bad data
+	string toss;
+
+	//because get line only reads strings we need to
+	//change the types from string to int or string to char
+	char movietype;
+	int stockNum;
+	int yearNum;
+
+	//movie we will be returning
 	Movie* theMov;
 
-	//in case we need to read in major actor
-	//had to move up here since switch statement
-	//was not working with this donw there
+	//switch statement doesnt allow
+	//declaration of string within it
+	//so we must declare these outside of the switch for classic
 	string majorActorFirstName;
 	string majorActorLastName;
+	string month;
+	int monthNum;
 
-	inStream >> movietype >> stock >> director >> title;
+	//for everything we read up until the comma
+	//then we need to ignore the space that comes after the comma
+	getline(inStream, type,  ',');
+	inStream.ignore();
+	getline(inStream, stock, ',');
+	inStream.ignore();
+	getline(inStream, director, ',');
+	inStream.ignore();
+	getline(inStream, title, ',');
+	inStream.ignore();
+
+	//if there is a blank line in the code
+	//we need to return null
+	if (type == "") {
+		return nullptr;
+	}
+
+	//cast the stock number and the movie type since we have raed thos in
+	movietype = type.at(0);
+	stockNum = stoi(stock);
+
 
 	switch (movietype) {
 	case 'F':
-
-		//if movie is a comedy we need to only get year
 		theMov = new Comedy(movietype);
-		int releaseYear;
-		inStream >> releaseYear;
-		theMov->setReleaseYear(releaseYear);
+
+		//get the year turn it into an int and set the movie's year
+		getline(inStream, releaseYear);
+		yearNum = stoi(releaseYear);
+		theMov->setReleaseYear(yearNum);
+
 		break;
 
 	case 'D':
 
-		//if movie is drama we only need to get year
 		theMov = new Drama(movietype);
-		int releaseYear;
-		inStream >> releaseYear;
-		theMov->setReleaseYear(releaseYear);
+
+		//get the year turn it into an int and set the movie's year
+		getline(inStream, releaseYear);
+		yearNum = stoi(releaseYear);
+		theMov->setReleaseYear(yearNum);
+
 		break;
 
 	case 'C':
 
-		//if movie is classic we need release month, year, and major actor
 		theMov = new Classic(movietype);
-		int month;
-		int releaseYear;
-		inStream >> majorActorFirstName;
-		inStream >> majorActorLastName;
-		inStream >> month;
-		inStream >> releaseYear;
-		theMov->setMajorActor((majorActorFirstName + " " + majorActorFirstName));
-		theMov->setReleaseMonth(month);
-		theMov->setReleaseYear(releaseYear);
+
+		//for classic we need to read until the space for every character
+		//as no more commas exist here
+		getline(inStream, majorActorFirstName, ' ');
+		getline(inStream, majorActorLastName, ' ');
+		getline(inStream, month, ' ');
+		getline(inStream, releaseYear);
+
+		//concatonate the actor's name
+		theMov->setMajorActor((majorActorFirstName + " " + majorActorLastName));
+
+		//case then set the month and year
+		monthNum = stoi(month);
+		yearNum = stoi(releaseYear);
+		theMov->setReleaseMonth(monthNum);
+		theMov->setReleaseYear(yearNum);
 		break;
 
 	default:
 
 		cerr << "Invlaid Movie Type: " << movietype << endl;
+		//read the rest of the line to toss out the bad data
+		getline(inStream, toss);
 		return nullptr;
 		break;
 
 	}
 
-	theMov->setStock(stock);
+	//set the general data that all movies ahve
+	theMov->setStock(stockNum);
 	theMov->setDirector(director);
 	theMov->setTitle(title);
 
