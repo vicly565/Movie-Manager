@@ -40,7 +40,7 @@ public:
 	virtual int getReleaseYear()const;
 	virtual string getMajorActor() const;
 
-    virtual void display();
+	virtual void display();
 	virtual string toString();//convert the transaction to a string
 protected:
 	char transactionType;
@@ -54,4 +54,3 @@ protected:
 	int releaseYear;
 	string majorActor;
 };
-

@@ -10,4 +10,3 @@ public:
 	void checkInventory(BinTree* comedy, BinTree* drama, BinTree* classic); //checks the inventory of all the items in the store
 
 };
-

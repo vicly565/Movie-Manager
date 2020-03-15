@@ -144,7 +144,7 @@ void Transaction::display()
 		break;
 
 	}
-	
+
 }
 
 string Transaction::toString()
@@ -154,7 +154,7 @@ string Transaction::toString()
 	char movieType = this->getMovieType();
 
 	string input = this->getTransactionType() + " ";
-	
+
 	switch (transType) {
 	case 'B':
 		//check movie type to find different type of movie
@@ -217,7 +217,7 @@ string Transaction::toString()
 		}
 
 	case 'I':
-		
+
 		break;
 
 	case 'H':
@@ -228,4 +228,3 @@ string Transaction::toString()
 
 	return input;
 }
-

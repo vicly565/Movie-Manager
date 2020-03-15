@@ -8,4 +8,3 @@ public:
 
 	bool doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTable* customers); //increases inventory of the certain movie by one
 };
-

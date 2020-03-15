@@ -13,6 +13,9 @@ int main() {
 	Business test;
 	ifstream infile1("data4movies.txt");
 	ifstream infile2("data4customers.txt");
+	ifstream infile3("data4commands.txt");
 	test.buildMovies(infile1);
 	test.buildCustomers(infile2);
+	test.buildTransactions(infile3);
+	test.executeTransactions();
 }

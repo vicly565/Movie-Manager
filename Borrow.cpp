@@ -13,7 +13,7 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 	if (tempCustomer == nullptr) {
 		//prints error if not found
 		cerr << "Customer not found: " << tempCustomer << endl;
-		
+
 	}
 	else {
 		char tempMovieType = this->getMovieType();
@@ -30,7 +30,7 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			foundMovie = new Comedy(tempMovieType);
 			if (comedy->retrieve(targetMovie, foundMovie)) {
 				if (foundMovie->getStock() > 0) {
-					
+
 					tempCustomer->borrowMovie(foundMovie);
 					foundMovie->setStock(foundMovie->getStock() - 1);//remove 1 from stock
 					return true;//transaction successful
@@ -99,4 +99,3 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 		}
 	}
 }
-

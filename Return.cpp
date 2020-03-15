@@ -74,4 +74,3 @@ bool Return::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 		}
 	}
 }
-

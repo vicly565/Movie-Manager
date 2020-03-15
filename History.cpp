@@ -8,7 +8,6 @@ History::History(char action)
 bool History::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTable* customers)
 {
 	Customer* tempCustomer = customers->retrieveCustomer(this->getCustomerID());
-
 	//checks if customer is in the system
 	if (tempCustomer == nullptr) {
 		//prints error if not found
@@ -16,7 +15,7 @@ bool History::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTab
 		return false;
 	}
 	else {
-		tempCustomer->displayHistory(); 
+		tempCustomer->displayHistory();
 	}
 	return true;
 }
