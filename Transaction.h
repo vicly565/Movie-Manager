@@ -9,6 +9,7 @@
 #include "comedy.h"
 #include "drama.h"
 #include "classic.h"
+#include "Customer.h"
 using namespace std;
 class Transaction
 {
@@ -40,6 +41,7 @@ public:
 	virtual string getMajorActor() const;
 
     virtual void display();
+	virtual string toString();//convert the transaction to a string
 protected:
 	char transactionType;
 	int customerId;

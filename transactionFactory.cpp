@@ -28,6 +28,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 
 	getline(inStream, readTransactionType, ' ');
 	transactionType = readTransactionType.at(0);
+	cout << readTransactionType << endl;
 
 	switch (transactionType) {
 	//makes Borrow if the transaction type is B
@@ -185,6 +186,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 
 	//makes History if the transaction type is H
 	case 'H':		
+		cout << "penis";
 		insTransaction = new History(transactionType);
 		getline(inStream, readCustomerID, ' ');
 		customerID = stoi(readCustomerID);
