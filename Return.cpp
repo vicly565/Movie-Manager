@@ -28,16 +28,9 @@ bool Return::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			targetMovie->setReleaseYear(this->getReleaseYear());
 
 			foundMovie = new Comedy(tempMovieType);
-			if (comedy->retrieve(targetMovie, foundMovie)) {
-				if (foundMovie->getStock() > 0) {
-					foundMovie->setStock(foundMovie->getStock() + 1);//adds 1 to stock
-					tempCustomer->borrowMovie(foundMovie->getTitle());//adds the movie title to the customers borrowed list
-					return true;//transaction successful
-				}
-				else {
-					//comedy.displaySameName(targetMovie);
-					return false;
-				}
+			if (comedy->retrieve(targetMovie, foundMovie)) {//check for the movie
+				tempCustomer->returnMovie(foundMovie);
+				foundMovie->setStock(foundMovie->getStock() + 1);
 			}
 			else {
 				cerr << "Invlaid Movie: " << targetMovie->getTitle() << endl;
@@ -51,16 +44,9 @@ bool Return::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			targetMovie->setDirector(this->getDirector());
 
 			foundMovie = new Drama(tempMovieType);
-			if (drama->retrieve(targetMovie, foundMovie)) {
-				if (foundMovie->getStock() > 0) {
-					foundMovie->setStock(foundMovie->getStock() + 1);//adds 1 to stock
-					tempCustomer->borrowMovie(foundMovie->getTitle());//adds the movie title to the customers borrowed list
-					return true;
-				}
-				else {
-					//drama.displaySameName(targetMovie);
-					return false;
-				}
+			if (drama->retrieve(targetMovie, foundMovie)) {//check for the movie
+				tempCustomer->returnMovie(foundMovie);
+				foundMovie->setStock(foundMovie->getStock() + 1);
 			}
 			else {
 				cerr << "Invlaid Movie: " << targetMovie->getTitle() << endl;
@@ -75,16 +61,9 @@ bool Return::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			targetMovie->setMajorActor(this->getMajorActor());
 
 			foundMovie = new Classic(tempMovieType);
-			if (classic->retrieve(targetMovie, foundMovie)) {
-				if (foundMovie->getStock() > 0) {
-					foundMovie->setStock(foundMovie->getStock() + 1);//adds 1 to stock
-					tempCustomer->borrowMovie(foundMovie->getTitle());//adds the movie title to the customers borrowed list
-					return true;
-				}
-				else {
-					//classic.displaySameName(targetMovie);
-					return false;
-				}
+			if (classic->retrieve(targetMovie, foundMovie)) {//check for the movie
+				tempCustomer->returnMovie(foundMovie);
+				foundMovie->setStock(foundMovie->getStock() + 1);
 			}
 			else {
 				cerr << "Invlaid Movie with major actor: " << targetMovie->getMajorActor() << endl;

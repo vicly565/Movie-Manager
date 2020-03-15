@@ -30,12 +30,14 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			foundMovie = new Comedy(tempMovieType);
 			if (comedy->retrieve(targetMovie, foundMovie)) {
 				if (foundMovie->getStock() > 0) {
+					
+					tempCustomer->borrowMovie(foundMovie);
 					foundMovie->setStock(foundMovie->getStock() - 1);//remove 1 from stock
-					tempCustomer->borrowMovie(foundMovie->getTitle());//adds the movie title to the customers borrowed list
 					return true;//transaction successful
 				}
 				else {
-					//comedy.displaySameName(targetMovie);
+					comedy->displayInStock(targetMovie);
+					cout << targetMovie << "out of stock.";
 					return false;
 				}
 			}
@@ -53,12 +55,13 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			foundMovie = new Drama(tempMovieType);
 			if (drama->retrieve(targetMovie, foundMovie)) {
 				if (foundMovie->getStock() > 0) {
+					tempCustomer->borrowMovie(foundMovie);
 					foundMovie->setStock(foundMovie->getStock() - 1);//remove 1 from stock
-					tempCustomer->borrowMovie(foundMovie->getTitle());//adds the movie title to the customers borrowed list
-					return true;
+					return true;//transaction successful
 				}
 				else {
-					//drama.displaySameName(targetMovie);
+					comedy->displayInStock(targetMovie);
+					cout << targetMovie << "out of stock.";
 					return false;
 				}
 			}
@@ -77,12 +80,13 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			foundMovie = new Classic(tempMovieType);
 			if (classic->retrieve(targetMovie, foundMovie)) {
 				if (foundMovie->getStock() > 0) {
+					tempCustomer->borrowMovie(foundMovie);
 					foundMovie->setStock(foundMovie->getStock() - 1);//remove 1 from stock
-					tempCustomer->borrowMovie(foundMovie->getTitle());//adds the movie title to the customers borrowed list
-					return true;
+					return true;//transaction successful
 				}
 				else {
-					//classic.displaySameName(targetMovie);
+					comedy->displayInStock(targetMovie);
+					cout << targetMovie << "out of stock.";
 					return false;
 				}
 			}
