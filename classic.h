@@ -39,7 +39,6 @@ public:
 	int getReleaseMonth()const;
 
 	//assignment operator overload from movie base class
-	Movie& operator=(Movie& rhs);
 
 	//operator overloads
 	bool operator==(const Movie& other) const;

@@ -42,7 +42,7 @@ void Transaction::setReleaseMonth(int month)
 
 void Transaction::setReleaseYear(int year)
 {
-	releaseMonth = year;
+	releaseYear = year;
 }
 
 void Transaction::setMajorActor(string actor)
@@ -149,82 +149,5 @@ void Transaction::display()
 
 string Transaction::toString()
 {
-	char transType = this->getTransactionType();
-	//check movie type to find different type of movie
-	char movieType = this->getMovieType();
-
-	string input = this->getTransactionType() + " ";
-
-	switch (transType) {
-	case 'B':
-		//check movie type to find different type of movie
-		switch (movieType) {
-		case 'F':
-			input += this->getCustomerID();
-			input += " " + this->getMediaType();
-			input += " " + this->getMovieType();
-			input += " " + this->getTitle();
-			input += ", " + this->getReleaseYear();
-			break;
-
-		case 'D':
-			input += this->getCustomerID();
-			input += " " + this->getMediaType();
-			input += " " + this->getMovieType();
-			input += " " + this->getDirector();
-			input += ", " + this->getTitle() + ",";
-			break;
-
-		case 'C':
-			input += this->getCustomerID();
-			input += " " + this->getMediaType();
-			input += " " + this->getMovieType();
-			input += " " + this->getReleaseMonth();
-			input += " " + this->getReleaseYear();
-			input += " " + this->getMajorActor();
-			break;
-
-		}
-
-	case 'R':
-		//check movie type to find different type of movie
-		switch (movieType) {
-		case 'F':
-			input += this->getCustomerID();
-			input += " " + this->getMediaType();
-			input += " " + this->getMovieType();
-			input += " " + this->getTitle();
-			input += ", " + this->getReleaseYear();
-			break;
-
-		case 'D':
-			input += this->getCustomerID();
-			input += " " + this->getMediaType();
-			input += " " + this->getMovieType();
-			input += " " + this->getDirector();
-			input += ", " + this->getTitle() + ",";
-			break;
-
-		case 'C':
-			input += this->getCustomerID();
-			input += " " + this->getMediaType();
-			input += " " + this->getMovieType();
-			input += " " + this->getReleaseMonth();
-			input += " " + this->getReleaseYear();
-			input += " " + this->getMajorActor();
-			break;
-
-		}
-
-	case 'I':
-
-		break;
-
-	case 'H':
-		input += this->getCustomerID();
-		break;
-
-	}
-
-	return input;
+	return "a";
 }

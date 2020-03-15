@@ -27,10 +27,10 @@ bool Return::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			targetMovie->setTitle(this->getTitle());
 			targetMovie->setReleaseYear(this->getReleaseYear());
 
-			foundMovie = new Comedy(tempMovieType);
 			if (comedy->retrieve(targetMovie, foundMovie)) {//check for the movie
 				tempCustomer->returnMovie(foundMovie);
 				foundMovie->setStock(foundMovie->getStock() + 1);
+				this->setTitle(foundMovie->getTitle());
 			}
 			else {
 				cerr << "Invlaid Movie: " << targetMovie->getTitle() << endl;
@@ -43,10 +43,10 @@ bool Return::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			targetMovie->setTitle(this->getTitle());
 			targetMovie->setDirector(this->getDirector());
 
-			foundMovie = new Drama(tempMovieType);
 			if (drama->retrieve(targetMovie, foundMovie)) {//check for the movie
 				tempCustomer->returnMovie(foundMovie);
 				foundMovie->setStock(foundMovie->getStock() + 1);
+				this->setTitle(foundMovie->getTitle());
 			}
 			else {
 				cerr << "Invlaid Movie: " << targetMovie->getTitle() << endl;
@@ -60,10 +60,10 @@ bool Return::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			targetMovie->setReleaseYear(this->getReleaseYear());
 			targetMovie->setMajorActor(this->getMajorActor());
 
-			foundMovie = new Classic(tempMovieType);
 			if (classic->retrieve(targetMovie, foundMovie)) {//check for the movie
 				tempCustomer->returnMovie(foundMovie);
 				foundMovie->setStock(foundMovie->getStock() + 1);
+				this->setTitle(foundMovie->getTitle());
 			}
 			else {
 				cerr << "Invlaid Movie with major actor: " << targetMovie->getMajorActor() << endl;
@@ -73,4 +73,21 @@ bool Return::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 
 		}
 	}
+}
+
+string Return::toString()
+{
+		string putBackAsString;
+		switch (movieType) {
+		case 'F':
+			putBackAsString = "Returned: " + title + ", Released in: " + to_string(releaseYear) + ". Media Type: " + mediaType;
+			break;
+		case 'D':
+			putBackAsString = "Returned: " + title + ", Directed by: " + director + ". Media Type: " + mediaType;
+			break;
+		case 'C':
+			putBackAsString = "Returned: " + title + ", Released in: " + to_string(releaseMonth) + " " + to_string(releaseYear);
+			putBackAsString = putBackAsString + " Major Actor: " + majorActor + ". Media Type: " + mediaType;
+		}
+		return putBackAsString;
 }

@@ -51,7 +51,6 @@ HashTable::HashTable()
 // -------------------------------------------------------------------------------------------- 
 HashTable::~HashTable()
 {
-	cout << "destructing table" << endl;
 	makeEmpty();
 }
 

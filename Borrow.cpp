@@ -8,7 +8,7 @@ Borrow::Borrow(char action)
 bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTable* customers)
 {
 	Customer* tempCustomer = customers->retrieveCustomer(this->getCustomerID());
-
+	Movie* foundMovie = nullptr;
 	//checks if customer is in the system
 	if (tempCustomer == nullptr) {
 		//prints error if not found
@@ -19,7 +19,6 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 		char tempMovieType = this->getMovieType();
 		Movie* targetMovie;
 		Movie* foundMovie;
-
 		//check movie type to find different type of movie
 		switch (tempMovieType) {
 		case 'F':
@@ -27,22 +26,26 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			targetMovie->setTitle(this->getTitle());
 			targetMovie->setReleaseYear(this->getReleaseYear());
 
-			foundMovie = new Comedy(tempMovieType);
 			if (comedy->retrieve(targetMovie, foundMovie)) {
 				if (foundMovie->getStock() > 0) {
-
-					tempCustomer->borrowMovie(foundMovie);
-					foundMovie->setStock(foundMovie->getStock() - 1);//remove 1 from stock
+					targetMovie->setDirector(foundMovie->getDirector());
+					targetMovie->setTitle(foundMovie->getTitle());
+					targetMovie->setReleaseYear(foundMovie->getReleaseYear());
+					targetMovie->setStock(foundMovie->getStock());
+					tempCustomer->borrowMovie(targetMovie);
+					int checkoutStock = foundMovie->getStock();
+					checkoutStock--;
+					foundMovie->setStock(checkoutStock);//remove 1 from stock
 					return true;//transaction successful
 				}
-				else {
+				else if(foundMovie->getStock() == 0){
 					comedy->displayInStock(targetMovie);
-					cout << targetMovie << "out of stock.";
+					cout << foundMovie->getTitle() << " out of stock." << endl;
 					return false;
 				}
 			}
 			else {
-				cerr << "Invlaid Movie: " << targetMovie->getTitle() << endl;
+				cerr << "Invalid Movie: " << targetMovie->getTitle() << endl;
 				return false;
 			}
 			break;
@@ -52,21 +55,26 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			targetMovie->setTitle(this->getTitle());
 			targetMovie->setDirector(this->getDirector());
 
-			foundMovie = new Drama(tempMovieType);
 			if (drama->retrieve(targetMovie, foundMovie)) {
 				if (foundMovie->getStock() > 0) {
-					tempCustomer->borrowMovie(foundMovie);
-					foundMovie->setStock(foundMovie->getStock() - 1);//remove 1 from stock
+					targetMovie->setDirector(foundMovie->getDirector());
+					targetMovie->setTitle(foundMovie->getTitle());
+					targetMovie->setReleaseYear(foundMovie->getReleaseYear());
+					targetMovie->setStock(foundMovie->getStock());
+					tempCustomer->borrowMovie(targetMovie);
+					int checkoutStock = foundMovie->getStock();
+					checkoutStock--;
+					foundMovie->setStock(checkoutStock);//remove 1 from stock
 					return true;//transaction successful
 				}
-				else {
+				else if (foundMovie->getStock() == 0) {
 					comedy->displayInStock(targetMovie);
-					cout << targetMovie << "out of stock.";
+					cout << foundMovie->getTitle() << " out of stock." << endl;
 					return false;
 				}
 			}
 			else {
-				cerr << "Invlaid Movie: " << targetMovie->getTitle() << endl;
+				cerr << "Invalid Movie: " << targetMovie->getTitle() << endl;
 				return false;
 			}
 			break;
@@ -77,25 +85,50 @@ bool Borrow::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashTabl
 			targetMovie->setReleaseYear(this->getReleaseYear());
 			targetMovie->setMajorActor(this->getMajorActor());
 
-			foundMovie = new Classic(tempMovieType);
 			if (classic->retrieve(targetMovie, foundMovie)) {
 				if (foundMovie->getStock() > 0) {
-					tempCustomer->borrowMovie(foundMovie);
-					foundMovie->setStock(foundMovie->getStock() - 1);//remove 1 from stock
+					this->setTitle(foundMovie->getTitle());
+					targetMovie->setDirector(foundMovie->getDirector());
+					targetMovie->setTitle(foundMovie->getTitle());
+					targetMovie->setReleaseYear(foundMovie->getReleaseYear());
+					targetMovie->setMajorActor(foundMovie->getMajorActor());
+					targetMovie->setReleaseMonth(foundMovie->getReleaseMonth());
+					targetMovie->setStock(foundMovie->getStock());
+					tempCustomer->borrowMovie(targetMovie);
+					int checkoutStock = foundMovie->getStock();
+					checkoutStock--;
+					foundMovie->setStock(checkoutStock);//remove 1 from stock
 					return true;//transaction successful
 				}
-				else {
+				else if (foundMovie->getStock() == 0) {
 					comedy->displayInStock(targetMovie);
-					cout << targetMovie << "out of stock.";
+					cout << foundMovie->getTitle() << " out of stock." << endl;
 					return false;
 				}
 			}
 			else {
-				cerr << "Invlaid Movie with major actor: " << targetMovie->getMajorActor() << endl;
+				cerr << "Invalid Movie with major actor: " << targetMovie->getMajorActor() << endl;
 				return false;
 			}
 			break;
 
 		}
 	}
+}
+
+string Borrow::toString()
+{
+	string borrowAsString;
+	switch (movieType) {
+	case 'F':
+		borrowAsString = "Borrowed: " + title + ", Released in: " + to_string(releaseYear) + ". Media Type: " + mediaType;
+		break;
+	case 'D':
+		borrowAsString = "Borrowed: " + title + ", Directed by: " + director + ". Media Type: " + mediaType;
+		break;
+	case 'C':
+		borrowAsString = "Borrowed: " + title + ", Released in: " + to_string(releaseMonth) + " " + to_string(releaseYear);
+		borrowAsString = borrowAsString + " Major Actor: " + majorActor + ". Media Type: " + mediaType;
+	}
+	return borrowAsString;
 }

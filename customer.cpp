@@ -64,17 +64,18 @@ void Customer::borrowMovie(Movie*& movie)
 void Customer::returnMovie(Movie* movie)
 {
 	int removed = getMovieIndex(movie);
-	if (hasMovie(movie)) {
-		if (borrowedMovies[removed]->getStock() > 1) {//check if customer has more than 1 copy
-			borrowedMovies[removed]->setStock(borrowedMovies[removed]->getStock() - 1);
-		}
-		else {
-			borrowedMovies.erase(borrowedMovies.begin() + removed);//if only has one delete 
+	for (int i = 0; i < borrowedMovies.size(); i++) {
+		if (borrowedMovies[i] == movie) {
+			if (borrowedMovies[i]->getStock() > 1) {//check if customer has more than 1 copy
+				borrowedMovies[i]->setStock(borrowedMovies[i]->getStock() - 1);
+			}
+			else {
+				borrowedMovies.erase(borrowedMovies.begin() + i);//if only has one delete 
+			}
 		}
 	}
-	else {
+
 		cout << "Customer does not have the movie" << endl;
-	}
 }
 
 bool Customer::hasMovie(Movie* movie)
@@ -88,9 +89,11 @@ bool Customer::hasMovie(Movie* movie)
 
 int Customer::getMovieIndex(Movie* movie)
 {
-	for (int i = 1; i <= borrowedMovies.size(); i++) {
-		if (borrowedMovies[i] == movie) {
-			return i - 1;//minus 1 because erase uses beginning of vector
+	for (int i = 1; i < borrowedMovies.size(); i++) {
+
+			if (borrowedMovies[i] == movie) {
+				return i - 1;//minus 1 because erase uses beginning of vector
+
 		}
 	}
 	return -1;//return -1 if wasnt found
@@ -104,7 +107,6 @@ void Customer::display()
 
 void Customer::displayHistory()
 {
-	this->display();
 	cout << endl;
 	cout << "Displaying History for :" << firstName << " " << lastName << endl;
 	for (int i = 0; i < history.size(); i++) {

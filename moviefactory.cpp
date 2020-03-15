@@ -136,7 +136,6 @@ Movie* MovieFactory::MakeMovie(istream& inStream)
 		break;
 
 	}
-
 	//set the general data that all movies ahve
 	theMov->setStock(stockNum);
 	theMov->setDirector(director);

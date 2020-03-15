@@ -66,6 +66,8 @@ protected:
 	string title;
 	int releaseYear;
 	char typeOfMovie;
+	string majorActor;
+	int releaseMonth;
 };
 
 

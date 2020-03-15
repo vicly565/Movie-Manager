@@ -9,7 +9,7 @@
 #include "comedy.h"
 #include "drama.h"
 #include "classic.h"
-#include "Customer.h"
+#include "customer.h"
 using namespace std;
 class Transaction
 {

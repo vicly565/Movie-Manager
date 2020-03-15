@@ -103,25 +103,7 @@ int Classic::getReleaseMonth() const
 // ------------------------------------End of getters-------------------------------------------
 
 // ------------------------------------Operator Overloads-------------------------------------------
-// ------------------------------------Assignment Operator Overload---------------------------------
-// Description
-//  Movie& operator=(Movie& rhs) const: copies all data values of the right hand movie to this movie
-// preconditions: A movie must be passed in
-//
-// postconditions: This function returns a copy of the right hand movie
-//
-// -------------------------------------------------------------------------------------------- 
-Movie& Classic::operator=(Movie& rhs)
-{
-	this->typeOfMovie = rhs.getTypeOfMovie();
-	this->stock = rhs.getStock();
-	this->director = rhs.getDirector();
-	this->title = rhs.getTitle();
-	this->releaseYear = rhs.getReleaseYear();
-	this->releaseMonth = rhs.getReleaseMonth();
-	this->majorActor = rhs.getMajorActor();
-	return *this;
-}
+
 
 // ------------------------------------Equals Operator Overload---------------------------------
 // Description

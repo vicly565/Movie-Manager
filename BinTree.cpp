@@ -52,7 +52,6 @@ BinTree::BinTree()
 // -------------------------------------------------------------------------------------------- 
 BinTree::~BinTree()
 {
-	cout << "destructing tree" << endl;
 	//if this tree is not empty, then call the method to make the tree empty
 	if (!this->isEmpty()) {
 		makeEmpty();
@@ -87,7 +86,7 @@ bool BinTree::retrieve(Movie*& target, Movie*& toFind)
 	if (root == nullptr) {
 		//might need to display movie name we're looking for
 		//maybe handle this in the borrow/return function of transaction
-		cout << "Error: Movie not found";
+		//cout << "Error: Movie not found";
 		return false;
 	}
 	
@@ -97,6 +96,8 @@ bool BinTree::retrieve(Movie*& target, Movie*& toFind)
 
 	//while we haven't found the movie
 	while (!found) {
+		if (curr != nullptr) {
+		}
 		if (curr != nullptr && *target == *curr->pMovie) {
 			//if we've found our movie
 			toFind = curr->pMovie;
@@ -119,7 +120,7 @@ bool BinTree::retrieve(Movie*& target, Movie*& toFind)
 	}
 
 	//might need to display movie name we're looking for
-	cout << "Error: Movie not found" << endl;
+	//cout << "Error: Movie not found" << endl;
 	return false;
 }
 

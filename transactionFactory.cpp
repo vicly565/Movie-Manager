@@ -29,7 +29,6 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 
 	transactionType = inStream.get();
 	inStream.ignore();
-	cout << transactionType << endl;
 
 	switch (transactionType) {
 		//makes Borrow if the transaction type is B
@@ -73,9 +72,10 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 			insTransaction->setTitle(title);
 			inStream.ignore();
 			//read in realease year
-			getline(inStream, readReleaseYear);
+			getline(inStream, readReleaseYear, '\n');
 			releaseYear = stoi(readReleaseYear);
 			insTransaction->setReleaseYear(releaseYear);
+			insTransaction->setMovieType('F');
 			if (inStream.peek() == '\n') {
 				inStream.ignore();
 			}
@@ -89,6 +89,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 			//read in title
 			getline(inStream, title, ',');
 			insTransaction->setTitle(title);
+			insTransaction->setMovieType('D');
 			if (inStream.peek() == '\n') {
 				inStream.ignore();
 			}
@@ -106,6 +107,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 
 			getline(inStream, majorActor);
 			insTransaction->setMajorActor(majorActor);
+			insTransaction->setMovieType('C');
 			if (inStream.peek() == '\n') {
 				inStream.ignore();
 			}
@@ -158,9 +160,10 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 			getline(inStream, title, ',');
 			insTransaction->setTitle(title);
 			inStream.ignore();
-			getline(inStream, readReleaseYear);
+			getline(inStream, readReleaseYear, '\n');
 			releaseYear = stoi(readReleaseYear);
 			insTransaction->setReleaseYear(releaseYear);
+			insTransaction->setMovieType('F');
 			if (inStream.peek() == '\n') {
 				inStream.ignore();
 			}
@@ -172,6 +175,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 			insTransaction->setDirector(director);
 			getline(inStream, title, ',');
 			insTransaction->setTitle(title);
+			insTransaction->setMovieType('D');
 			if (inStream.peek() == '\n') {
 				inStream.ignore();
 			}
@@ -189,6 +193,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 
 			getline(inStream, majorActor);
 			insTransaction->setMajorActor(majorActor);
+			insTransaction->setMovieType('C');
 			if (inStream.peek() == '\n') {
 				inStream.ignore();
 			}
@@ -241,6 +246,5 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 		break;
 
 	}
-
 	return insTransaction;
 }

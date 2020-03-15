@@ -250,5 +250,7 @@ Movie& Movie::operator=(const Movie& rhs)
 	this->director = rhs.getDirector();
 	this->title = rhs.getTitle();
 	this->releaseYear = rhs.getReleaseYear();
+	this->releaseMonth = rhs.getReleaseMonth();
+	this->majorActor = rhs.getMajorActor();
 	return *this;
 }

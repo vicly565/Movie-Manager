@@ -57,7 +57,7 @@ bool Comedy::operator==(const Movie& other) const
 {
 	//compares the movie title, and release year to see if they are equal
 	if (title == other.getTitle()) {
-		if (director == other.getDirector()) {
+		if (releaseYear == other.getReleaseYear()) {
 			return true;
 		}
 	}
