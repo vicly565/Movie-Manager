@@ -14,6 +14,6 @@ bool Inventory::doTrans(BinTree* comedy, BinTree* drama, BinTree* classic, HashT
 void Inventory::checkInventory(BinTree* comedy, BinTree* drama, BinTree* classic)
 {
 	comedy->display();//displays everything from the comedy BST
-	classic->display();//displays everything from the classic BST
 	drama->display();//displays everyting from the drama BST
+	classic->display();//displays everything from the classic BST
 }
