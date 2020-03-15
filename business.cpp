@@ -176,9 +176,7 @@ void Business::buildTransactions(istream& inStream)
 		if (queueTransaction != nullptr) {
 			transactions.push(queueTransaction);
 		}
-		else {
-			cout << "Not a valid transaction." << endl;
-		}
+
 	}
 }
 
@@ -195,23 +193,24 @@ void Business::executeTransactions()
 	//while the queue of transactions is not empty
 	while (!transactions.empty()) {
 		Transaction* doing;
-
+		Customer* theCust;
 		//get the first transaction to do from the queue
-		doing = transactions.pop();
-		if (doing->getTransactionType() == 'B' || doing->getTransactionType() != 'R') {
+		doing = transactions.front();
+		//then remove the transaction from the front
+		transactions.pop();
+		if (doing->getTransactionType() == 'B' || doing->getTransactionType() == 'R') {
 			//if doing the borrow or return was successful
-			if (doing->doTrans()) {
+			if (doing->doTrans(&comedyTree, &dramaTree, &classicTree, &customerAccounts)) {
 				//we want to store this transaction in the customer
-				Customer* theCust;
 				//get the customer from hashing the ID of the transaction
 				theCust = customerAccounts.retrieveCustomer(doing->getCustomerID());
 				string history = doing->toString();
-				theCust.addTransaction(history);
+				theCust->addTransaction(history);
 			}
 		}
 		else {
 			//otherwise we just got a history or inventory so we can just do that
-			doing->doTrans();
+			doing->doTrans(&comedyTree, &dramaTree, &classicTree, &customerAccounts);
 		}
 	}
 }

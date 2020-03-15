@@ -9,6 +9,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 	string readMovieType;
 	string readReleaseMonth;
 	string readReleaseYear;
+	string toss;
 
 
 	//converted data from get line
@@ -26,12 +27,12 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 	Transaction* insTransaction;
 
 
-	getline(inStream, readTransactionType, ' ');
-	transactionType = readTransactionType.at(0);
-	cout << readTransactionType << endl;
+	transactionType = inStream.get();
+	inStream.ignore();
+	cout << transactionType << endl;
 
 	switch (transactionType) {
-	//makes Borrow if the transaction type is B
+		//makes Borrow if the transaction type is B
 	case 'B':
 		insTransaction = new Borrow(transactionType);
 		getline(inStream, readCustomerID, ' ');
@@ -39,6 +40,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 		//checks for correct customer id
 		if (customerID < 1000 || customerID > 9999) {
 			cerr << "Invalid Customer ID: " << customerID << endl;
+			getline(inStream, toss);
 			return nullptr;
 			break;
 		}
@@ -52,6 +54,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 		//checks for correct media type
 		if (mediaType != 'D') {
 			cerr << "Invalid Media type " << mediaType << endl;
+			getline(inStream, toss);
 			return nullptr;
 			break;
 		}
@@ -63,19 +66,22 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 		movieType = readMovieType.at(0);
 
 		switch (movieType) {
-		//checks for comedy movie type
+			//checks for comedy movie type
 		case 'F':
 			//read in title
 			getline(inStream, title, ',');
 			insTransaction->setTitle(title);
 			inStream.ignore();
 			//read in realease year
-			getline(inStream, readReleaseYear, ' ');
+			getline(inStream, readReleaseYear);
 			releaseYear = stoi(readReleaseYear);
 			insTransaction->setReleaseYear(releaseYear);
+			if (inStream.peek() == '\n') {
+				inStream.ignore();
+			}
 			break;
 
-		//checks for drama movie type
+			//checks for drama movie type
 		case 'D':
 			//read in director
 			getline(inStream, director, ',');
@@ -83,32 +89,39 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 			//read in title
 			getline(inStream, title, ',');
 			insTransaction->setTitle(title);
+			if (inStream.peek() == '\n') {
+				inStream.ignore();
+			}
 			break;
 
-		//checks for classic movie type
+			//checks for classic movie type
 		case 'C':
 			getline(inStream, readReleaseMonth, ' ');
 			releaseMonth = stoi(readReleaseMonth);
 			insTransaction->setReleaseMonth(releaseMonth);
-			
+
 			getline(inStream, readReleaseYear, ' ');
 			releaseYear = stoi(readReleaseYear);
 			insTransaction->setReleaseYear(releaseYear);
-			
+
 			getline(inStream, majorActor);
 			insTransaction->setMajorActor(majorActor);
+			if (inStream.peek() == '\n') {
+				inStream.ignore();
+			}
 			break;
 
 		default:
 
 			cerr << "Invlaid Movie Type: " << movieType << endl;
+			getline(inStream, toss);
 			return nullptr;
 			break;
 
 		}
 		break;
 
-	//makes Return if the transaction type is R, same implementation as borrow but made as a return
+		//makes Return if the transaction type is R, same implementation as borrow but made as a return
 	case 'R':
 		insTransaction = new Return(transactionType);
 		getline(inStream, readCustomerID, ' ');
@@ -116,6 +129,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 		//checks for correct customer id
 		if (customerID < 1000 || customerID > 9999) {
 			cerr << "Invalid Customer ID: " << customerID << endl;
+			getline(inStream, toss);
 			return nullptr;
 			break;
 		}
@@ -128,6 +142,7 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 		//checks for correct media type
 		if (mediaType != 'D') {
 			cerr << "Invalid Media type " << mediaType << endl;
+			getline(inStream, toss);
 			return nullptr;
 			break;
 		}
@@ -143,9 +158,12 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 			getline(inStream, title, ',');
 			insTransaction->setTitle(title);
 			inStream.ignore();
-			getline(inStream, readReleaseYear, ' ');
+			getline(inStream, readReleaseYear);
 			releaseYear = stoi(readReleaseYear);
 			insTransaction->setReleaseYear(releaseYear);
+			if (inStream.peek() == '\n') {
+				inStream.ignore();
+			}
 			break;
 
 			//checks for drama movie type
@@ -154,6 +172,9 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 			insTransaction->setDirector(director);
 			getline(inStream, title, ',');
 			insTransaction->setTitle(title);
+			if (inStream.peek() == '\n') {
+				inStream.ignore();
+			}
 			break;
 
 			//checks for classic movie type
@@ -168,27 +189,33 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 
 			getline(inStream, majorActor);
 			insTransaction->setMajorActor(majorActor);
+			if (inStream.peek() == '\n') {
+				inStream.ignore();
+			}
 			break;
 
 		default:
 
 			cerr << "Invlaid Movie Type: " << movieType << endl;
+			getline(inStream, toss);
 			return nullptr;
 			break;
 
 		}
 		break;
 
-	//makes inventory which is just "I" as the transaction type
+		//makes inventory which is just "I" as the transaction type
 	case 'I':
 		insTransaction = new Inventory(transactionType);
+		if (inStream.peek() == '\n') {
+			inStream.ignore();
+		}
 		break;
 
-	//makes History if the transaction type is H
-	case 'H':		
-		cout << "penis";
+		//makes History if the transaction type is H
+	case 'H':
 		insTransaction = new History(transactionType);
-		getline(inStream, readCustomerID, ' ');
+		getline(inStream, readCustomerID);
 		customerID = stoi(readCustomerID);
 		//checks for correct customer id
 		if (customerID < 1000 || customerID > 9999) {
@@ -198,12 +225,18 @@ Transaction* transactionFactory::make_Transaction(istream& inStream)
 		}
 
 		insTransaction->setCustomerID(customerID);
+		if (inStream.peek() == '\n') {
+			inStream.ignore();
+		}
 		break;
 
-	//default for an invalid transaction type
+		//default for an invalid transaction type
 	default:
 
 		cerr << "Invalid Transaction type: " << transactionType << endl;
+		if (inStream.peek() != '\n') {
+			getline(inStream, toss);
+		}
 		return nullptr;
 		break;
 

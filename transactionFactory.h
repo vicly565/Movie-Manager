@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "Borrow.h"
 #include "Return.h"
@@ -10,4 +11,3 @@ class transactionFactory
 public:
 	static Transaction* make_Transaction(istream& inStream);
 };
-
